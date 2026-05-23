@@ -16,10 +16,8 @@ export class TeamMemberService {
 
   getAllTeamMembers(page: number = 0, size: number = 100): Observable<ApiResponse<PageResponse<TeamMember>>> {
     const url = `${this.apiUrl}?page=${page}&size=${size}`;
-    console.log('Fetching team members from:', url);
     
     return this.http.get<ApiResponse<PageResponse<TeamMember>>>(url).pipe(
-      tap(response => console.log('Team members response:', response)),
       catchError(error => {
         console.error('Error fetching team members:', error);
         throw error;

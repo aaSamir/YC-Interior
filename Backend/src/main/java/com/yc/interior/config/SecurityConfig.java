@@ -78,11 +78,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         // LOCAL: Allow all localhost origins in development
-        // PRODUCTION: Update with your Vercel frontend URL
+        // PRODUCTION: Update with your frontend URL(s) as needed
         config.setAllowedOriginPatterns(List.of(
-            "http://localhost:*",                           // LOCAL: Development
-            "https://*.vercel.app",                         // PRODUCTION: Vercel frontend
-            "https://admin.yc-interior.com"                 // PRODUCTION: Admin domain
+            "http://localhost:*"                           // LOCAL: Development
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         // LOCAL & PRODUCTION: Allow all headers including cache-control

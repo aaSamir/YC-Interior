@@ -434,8 +434,6 @@ export class ReviewsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Retry marquee initialization if data is already loaded
     setTimeout(() => {
       if (!this.loading && this.displayReviews.length > 0) {
-        console.log('AfterViewInit: Initializing marquee');
-        console.log('Track element:', this.track);
         this.initMarquee();
       }
     }, 500);
@@ -451,24 +449,18 @@ export class ReviewsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loading = true;
     this.reviewService.getAllReviews().subscribe({
       next: (response) => {
-        console.log('Reviews API Response:', response);
         if (response.success && response.data) {
           // Handle paginated response
           const reviewData = Array.isArray(response.data) 
             ? response.data 
             : (response.data as any).content || [];
           
-          console.log('Review Data:', reviewData);
-          
           // Filter featured reviews
           this.reviews = reviewData.filter((r: Review) => r.isFeatured !== false);
-          
-          console.log('Filtered Reviews:', this.reviews);
           
           // Duplicate once for seamless loop
           if (this.reviews.length > 0) {
             this.displayReviews = [...this.reviews, ...this.reviews];
-            console.log('Display Reviews:', this.displayReviews);
           }
         }
         this.loading = false;
@@ -476,13 +468,8 @@ export class ReviewsComponent implements OnInit, OnDestroy, AfterViewInit {
         
         // Initialize marquee after view updates
         setTimeout(() => {
-          console.log('Attempting to initialize marquee...');
-          console.log('Display reviews length:', this.displayReviews.length);
-          console.log('Track element:', this.track);
           if (this.displayReviews.length > 0) {
             this.initMarquee();
-          } else {
-            console.log('Cannot init marquee - no reviews');
           }
         }, 500);
       },
@@ -494,30 +481,20 @@ export class ReviewsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   initMarquee() {
-    console.log('initMarquee called');
-    console.log('Track reference:', this.track);
-    
     if (!this.track) {
-      console.error('Track ViewChild is undefined');
       return;
     }
     
     if (!this.track.nativeElement) {
-      console.error('Track nativeElement not found');
       return;
     }
     
     const el = this.track.nativeElement;
-    console.log('Track element:', el);
-    console.log('Track scrollWidth:', el.scrollWidth);
-    console.log('Track children count:', el.children.length);
     
     // Total width of half content (one set of reviews)
     const totalWidth = el.scrollWidth / 2;
-    console.log('Total width for animation:', totalWidth);
     
     if (totalWidth === 0) {
-      console.error('Total width is 0, cannot animate');
       return;
     }
     
@@ -528,24 +505,13 @@ export class ReviewsComponent implements OnInit, OnDestroy, AfterViewInit {
     
     this.marqueeAnimation = gsap.to(el, {
       x: -totalWidth,
-      duration: 30, // Slower for testing
+      duration: 30,
       ease: "none",
       repeat: -1,
       modifiers: {
         x: gsap.utils.unitize((x: string) => parseFloat(x) % totalWidth)
-      },
-      onStart: () => {
-        console.log('GSAP animation started successfully');
-      },
-      onUpdate: () => {
-        // Log occasionally to verify animation is running
-        if (Math.random() < 0.01) {
-          console.log('Animation running, x:', el.style.transform);
-        }
       }
     });
-    
-    console.log('GSAP animation created:', this.marqueeAnimation);
   }
 
   getStars(rating: number): number[] {

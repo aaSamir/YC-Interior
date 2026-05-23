@@ -21,7 +21,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Initialize admin
+        // Initialize admin - only in development
+        // NOTE: For production, use environment variables or create admin manually
         if (!adminRepository.existsByEmail("admin@yc.com")) {
             Admin admin = Admin.builder()
                     .name("Admin")
@@ -31,7 +32,7 @@ public class DataInitializer implements CommandLineRunner {
                     .loginAttempts(0)
                     .build();
             adminRepository.save(admin);
-            log.info("✅ Default admin created — email: admin@yc.com | password: admin123");
+            log.info("⚠️  Default admin created for development only — email: admin@yc.com | CHANGE PASSWORD IMMEDIATELY IN PRODUCTION");
         } else {
             log.info("ℹ️  Admin already exists, skipping seed.");
         }

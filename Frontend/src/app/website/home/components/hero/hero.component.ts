@@ -131,13 +131,10 @@ export class HeroComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    console.log('Hero component loading settings...');
     this.settingsService.getSettings().subscribe({
       next: (response) => {
-        console.log('Settings API Response:', response);
         if (response.success && response.data) {
           this.settings = response.data;
-          console.log('Settings loaded:', this.settings);
           this.cdr.detectChanges();
         }
       },

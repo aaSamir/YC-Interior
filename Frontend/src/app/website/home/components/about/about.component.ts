@@ -276,22 +276,17 @@ export class AboutComponent implements OnInit, AfterViewInit {
   loadAbout() {
     this.loading = true;
     this.error = null;
-    console.log('Loading about sections...');
     
     this.aboutService.getAboutSections(0, 1).subscribe({
       next: (response) => {
-        console.log('About API Response:', response);
         if (response.success && response.data && response.data.content && response.data.content.length > 0) {
           this.aboutSection = response.data.content[0];
-          console.log('About section loaded:', this.aboutSection);
         } else {
-          console.log('No about sections found in response');
           this.error = 'No about section available';
           this.aboutSection = null;
         }
         this.loading = false;
         this.cdr.detectChanges();
-        console.log('Loading state after API call:', this.loading);
       },
       error: (error) => {
         console.error('Error loading about:', error);

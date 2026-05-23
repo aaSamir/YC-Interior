@@ -163,19 +163,16 @@ export class DashboardComponent implements OnInit {
       this.cdr.markForCheck();
     });
     
-    console.log('📊 Loading dashboard stats...');
     this.svc.getStats().subscribe({
       next: res => { 
-        console.log('✅ Dashboard stats loaded', res);
         this.zone.run(() => {
           this.stats = res.data; 
           this.loading = false; 
           this.cdr.markForCheck();
-          console.log('🎯 Loading state:', this.loading);
         });
       },
       error: err => { 
-        console.error('❌ Dashboard stats error', err);
+        console.error('Dashboard stats error:', err);
         this.zone.run(() => {
           this.loading = false; 
           this.cdr.markForCheck();

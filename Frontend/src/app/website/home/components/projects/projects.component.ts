@@ -235,11 +235,8 @@ export class ProjectsComponent implements OnInit {
     this.loading = true;
     this.projectService.getFeaturedProjects().subscribe({
       next: (response) => {
-        console.log('API Response:', response);
         this.loading = false;
         if (response.success && response.data?.content) {
-          console.log('Projects before sorting:', response.data.content.map(p => ({ title: p.title, displayOrder: p.displayOrder })));
-          
           // Sort by displayOrder in ascending order (0, 1, 2, 3...)
           const sortedProjects = [...response.data.content].sort((a, b) => {
             const orderA = a.displayOrder ?? 999;
@@ -247,11 +244,7 @@ export class ProjectsComponent implements OnInit {
             return orderA - orderB;
           });
           
-          console.log('Projects after sorting:', sortedProjects.map(p => ({ title: p.title, displayOrder: p.displayOrder })));
-          
           this.displayProjects = sortedProjects.slice(0, 4);
-          console.log('Display projects set to:', this.displayProjects.map(p => ({ title: p.title, displayOrder: p.displayOrder })));
-          console.log('Display projects length:', this.displayProjects.length);
           this.cdr.detectChanges();
         }
       },
@@ -272,23 +265,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   getProjectImage(project: Project): string {
-    console.log('Project:', project.title, 'coverMedia:', project.coverMedia, 'coverMediaId:', project.coverMediaId);
-    
     if (project.coverMedia?.url) {
       // Check if URL is already absolute (starts with http:// or https://)
       if (project.coverMedia.url.startsWith('http://') || project.coverMedia.url.startsWith('https://')) {
-        console.log('Using absolute coverMedia URL:', project.coverMedia.url);
         return project.coverMedia.url;
       }
       
       // Otherwise, construct relative URL
-      const fullUrl = `${environment.fileBaseUrl}${project.coverMedia.url}`;
-      console.log('Using relative coverMedia URL:', fullUrl);
-      return fullUrl;
+      return `${environment.fileBaseUrl}${project.coverMedia.url}`;
     }
     
     // Fallback to a placeholder image service
-    console.log('Using placeholder image for:', project.title);
     return 'https://via.placeholder.com/400x300/4a5d4f/ffffff?text=' + encodeURIComponent(project.title);
   }
 }

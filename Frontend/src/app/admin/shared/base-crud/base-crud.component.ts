@@ -357,7 +357,6 @@ export abstract class BaseCrudComponent<T extends { id?: number }, CreateRequest
 
   // Custom handlers (can be overridden by extending components)
   protected handleCustomAction(action: string, item: T) {
-    console.log('Custom action:', action, item);
   }
 
   protected handleToggleChange(item: T, field: string, value: boolean) {
