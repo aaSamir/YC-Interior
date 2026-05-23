@@ -2,7 +2,17 @@
 # Backend (Spring Boot)
 # ======================
 Backend/target/
+Backend/uploads/
 *.class
+
+# ======================
+# Environment & Secrets
+# ======================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
 
 # ======================
 # Angular / Node

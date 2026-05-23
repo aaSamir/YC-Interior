@@ -302,18 +302,15 @@ export class ServicesComponent implements OnInit, AfterViewInit {
 
   loadServices() {
     this.loading = true;
-    console.log('Loading services...');
     
     this.serviceService.getServices(0, 6).subscribe({
       next: (response) => {
-        console.log('Services API Response:', response);
         if (response.success && response.data && response.data.content) {
           // Filter only published and active services, sorted by displayOrder (0-5)
           this.services = response.data.content
             .filter(s => s.status === 'published' && s.isActive && s.displayOrder >= 0 && s.displayOrder <= 5)
             .sort((a, b) => a.displayOrder - b.displayOrder)
             .slice(0, 6);
-          console.log('Services loaded:', this.services);
         }
         this.loading = false;
         this.cdr.detectChanges();

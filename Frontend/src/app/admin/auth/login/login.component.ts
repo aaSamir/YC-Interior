@@ -339,17 +339,14 @@ export class LoginComponent {
     
     this.loading = true;
     this.error = '';
-    console.log('🔐 Attempting login...', { email: this.form.value.email });
-    console.log('📍 Request will be sent to: /auth/login (proxied to http://localhost:8080)');
     
     this.auth.login(this.form.value as any).subscribe({
-      next: (res) => { 
-        console.log('✅ Login success', res);
+      next: (res) => {
         this.router.navigate(['/admin/dashboard']); 
       },
       error: err => {
-        console.error('❌ Login error', err);
-        console.error('📍 Full error:', err);
+        console.error('Login error:', err);
+        console.error('Full error:', err);
         this.loading = false;
         this.error = err.error?.message || err.message || 'Invalid credentials';
         // Focus password field for retry

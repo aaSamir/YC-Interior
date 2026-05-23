@@ -121,7 +121,6 @@ export class AboutComponent implements OnInit {
       })
     ).subscribe({
       next: r => {
-        console.log('About sections loaded:', r);
         const items = r.data?.content || [];
         // Map items by ID to section types
         SECTION_TYPES.forEach(type => {
@@ -152,8 +151,6 @@ export class AboutComponent implements OnInit {
       description: val.content
     };
     
-    console.log('Saving about section:', typeConfig.id, req);
-    
     // Always update using the fixed ID
     this.saving[typeKey] = true;
     this.cdr.detectChanges();
@@ -165,7 +162,6 @@ export class AboutComponent implements OnInit {
       })
     ).subscribe({
       next: res => {
-        console.log('Save response:', res);
         this.sections[typeKey] = res.data;
         this.snack.open('Saved!', '', { duration: 2000 });
       },

@@ -390,7 +390,6 @@ export class AboutPageComponent implements OnInit {
     this.loading = true;
     this.aboutService.getAboutSections(0, 10).subscribe({
       next: (response: any) => {
-        console.log('About sections response:', response);
         if (response.success && response.data) {
           const sections = response.data.content || response.data;
           
@@ -400,13 +399,6 @@ export class AboutPageComponent implements OnInit {
           this.whyChooseUs = sections.find((s: AboutSection) => s.id === 2) || sections[1];
           this.chairmanMessage = sections.find((s: AboutSection) => s.id === 3) || sections[2];
           this.companyOverview = sections.find((s: AboutSection) => s.id === 4) || sections[3];
-          
-          console.log('Loaded sections:', {
-            aboutUs: this.aboutUs,
-            whyChooseUs: this.whyChooseUs,
-            chairmanMessage: this.chairmanMessage,
-            companyOverview: this.companyOverview
-          });
         }
         this.loading = false;
         this.cdr.detectChanges();

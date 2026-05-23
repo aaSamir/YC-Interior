@@ -40,8 +40,6 @@ export abstract class BaseCrudService<T, CreateRequest, UpdateRequest = CreateRe
         httpParams = httpParams.set(key, params[key]);
       }
     });
-
-    console.log(`📡 API Request: ${this.endpoint}?${httpParams.toString()}`);
     
     return this.http.get<ApiResponse<PageResponse<T>>>(this.endpoint, { params: httpParams })
       .pipe(timeout(this.timeout));
@@ -53,19 +51,16 @@ export abstract class BaseCrudService<T, CreateRequest, UpdateRequest = CreateRe
   }
 
   create(request: CreateRequest): Observable<ApiResponse<T>> {
-    console.log(`📡 Creating:`, request);
     return this.http.post<ApiResponse<T>>(this.endpoint, request)
       .pipe(timeout(this.timeout));
   }
 
   update(id: number, request: UpdateRequest): Observable<ApiResponse<T>> {
-    console.log(`📡 Updating ${id}:`, request);
     return this.http.put<ApiResponse<T>>(`${this.endpoint}/${id}`, request)
       .pipe(timeout(this.timeout));
   }
 
   delete(id: number): Observable<ApiResponse<void>> {
-    console.log(`📡 Deleting ${id}`);
     return this.http.delete<ApiResponse<void>>(`${this.endpoint}/${id}`)
       .pipe(timeout(this.timeout));
   }

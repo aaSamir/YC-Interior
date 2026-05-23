@@ -564,7 +564,6 @@ export class ContactPageComponent implements OnInit {
   }
 
   openExternalLink(url: string, event: Event) {
-    console.log('Contact page - openExternalLink called with URL:', url);
     event.preventDefault();
     event.stopPropagation();
     if (url) {
@@ -573,7 +572,6 @@ export class ContactPageComponent implements OnInit {
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
         finalUrl = 'https://' + url;
       }
-      console.log('Opening URL in new window:', finalUrl);
       window.open(finalUrl, '_blank', 'noopener,noreferrer');
     }
   }

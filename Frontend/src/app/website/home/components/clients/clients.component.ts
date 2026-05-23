@@ -367,13 +367,10 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loading = true;
     this.clientService.getAllClients().subscribe({
       next: (response) => {
-        console.log('Clients API Response:', response);
         if (response.success && response.data) {
           const clientData = Array.isArray(response.data) 
             ? response.data 
             : (response.data as any).content || [];
-          
-          console.log('Client Data:', clientData);
           
           this.clients = clientData.sort((a: Client, b: Client) => 
             (a.displayOrder || 0) - (b.displayOrder || 0)
@@ -426,12 +423,8 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
   getClientLogo(client: Client): string {
     // Check if logoMedia exists and has url
     if (client.logoMedia && client.logoMedia.url) {
-      const logoUrl = client.logoMedia.url;
-      console.log('Logo URL for', client.name, ':', logoUrl);
-      return logoUrl;
+      return client.logoMedia.url;
     }
-    
-    console.log('No logo media for client:', client.name, client);
     // Fallback placeholder
     return '/yc-assets/placeholder-logo.png';
   }

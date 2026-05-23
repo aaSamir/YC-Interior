@@ -15,11 +15,7 @@ export class ContactMessageService {
   constructor(private http: HttpClient) {}
 
   submitMessage(request: ContactMessageRequest): Observable<ApiResponse<ContactMessageResponse>> {
-    console.log('Submitting contact message to:', this.apiUrl);
-    console.log('Request data:', request);
-    
     return this.http.post<ApiResponse<ContactMessageResponse>>(this.apiUrl, request).pipe(
-      tap(response => console.log('Contact message response:', response)),
       catchError(error => {
         console.error('Error submitting contact message:', error);
         console.error('Error status:', error.status);

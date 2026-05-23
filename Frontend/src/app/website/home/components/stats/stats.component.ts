@@ -368,13 +368,11 @@ export class StatsComponent implements OnInit, AfterViewInit {
     this.loading = true;
     this.statisticService.getAll().subscribe({
       next: (response) => {
-        console.log('Statistics API Response:', response);
         if (response.success && response.data) {
           // Sort by displayOrder and take first 3
           this.statistics = response.data
             .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
             .slice(0, 3);
-          console.log('Statistics loaded:', this.statistics);
         }
         this.loading = false;
         this.cdr.detectChanges();

@@ -278,15 +278,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Subscribe to settings changes
     this.subscription = this.settingsState.settings$.subscribe(settings => {
-      console.log('Sidebar received settings update:', settings);
       this.settings = settings;
     });
     
     // Load settings if not already loaded
     if (!this.settingsState.getSettings()) {
       this.loadSettings();
-    } else {
-      console.log('Using cached settings:', this.settingsState.getSettings());
     }
   }
   

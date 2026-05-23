@@ -649,28 +649,18 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   loadGalleryImages() {
     this.loading = true;
-    console.log('Loading gallery images... loading =', this.loading);
     this.galleryService.getFeaturedImages().subscribe({
       next: (response) => {
-        console.log('Gallery API Response:', response);
         if (response.success && response.data) {
           const content = response.data.content || [];
           this.images = content.slice(0, 7);
-          console.log('Loaded images count:', this.images.length);
-          if (this.images.length > 0) {
-            console.log('First image:', this.images[0]);
-            console.log('First image media:', this.images[0].media);
-            console.log('First image URL:', this.getImageUrl(this.images[0]));
-          }
         }
         this.loading = false;
         this.cdr.detectChanges();
-        console.log('Loading complete. loading =', this.loading, 'images.length =', this.images.length);
       },
       error: (error) => {
         console.error('Error loading gallery:', error);
         this.loading = false;
-        console.log('Loading error. loading =', this.loading);
       }
     });
   }

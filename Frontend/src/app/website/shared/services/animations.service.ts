@@ -60,8 +60,6 @@ export class AnimationsService {
       opacity: 1,
       duration: 0.8,
     }, "-=0.6");
-    
-    console.log('Hero animations initialized');
   }
 
   // FADE UP ANIMATION - Reusable for sections
