@@ -31,8 +31,9 @@ spring.jpa.properties.hibernate.order_updates=true
 # =====================================================
 # JWT
 # =====================================================
-# IMPORTANT: JWT_SECRET must be set via environment variable in production
-# NEVER hardcode secrets in properties files
+# IMPORTANT: Set JWT_SECRET environment variable with a strong, random secret
+# Example (for development only):
+# JWT_SECRET=your-super-secret-key-change-this-in-production
 app.jwt.secret=${JWT_SECRET:}
 app.jwt.expiration=3600000
 app.jwt.refresh-expiration=604800000
@@ -66,3 +67,16 @@ springdoc.api-docs.path=/api-docs
 springdoc.swagger-ui.path=/swagger-ui.html
 springdoc.swagger-ui.operationsSorter=method
 springdoc.swagger-ui.tags-sorter=alpha
+
+# =====================================================
+# ENVIRONMENT-SPECIFIC SETUP
+# =====================================================
+# For LOCAL development:
+#   - Set up local MySQL database
+#   - JWT_SECRET can be a simple string (it will be regenerated anyway)
+#   - File uploads go to ./uploads directory
+#
+# For PRODUCTION (Render/Railway):
+#   - Ensure all sensitive environment variables are configured
+#   - Never commit actual secrets to repository
+#   - Use the platform's environment variable management
