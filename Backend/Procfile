@@ -1,2 +1,0 @@
-# PRODUCTION: Render process file
-web: java -jar target/interior-1.0.0.jar
