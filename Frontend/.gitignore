@@ -1,17 +1,51 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Environment & Secrets
+# =====================================================
+# ENVIRONMENT & SECRETS
+# =====================================================
+# Environment variables - CRITICAL: Never commit these!
 .env
 .env.local
 .env.*.local
+.env.production
+.env.production.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+
+# Private keys and certificates
 *.pem
 *.key
+*.crt
+*.cert
+*.pfx
+*.p12
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+# =====================================================
+# DEPLOYMENT & CONFIGURATION
+# =====================================================
+# Deployment configurations - manage via environment
+Procfile
+render.yaml
+railway.yaml
+deploy.yaml
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile
+docker/
+.dockerignore
+vercel.json
+netlify.toml
+.netlify/
+
+# CI/CD workflows and automation
+.github/
+.gitlab-ci.yml
+.circleci/
+.travis.yml
+azure-pipelines.yml
+.github/workflows/
 
 # Node
 /node_modules

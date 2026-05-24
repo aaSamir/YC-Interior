@@ -17,6 +17,7 @@ out/
 bin/
 build/
 dist/
+*.class
 
 # =====================================================
 # IDE AND EDITOR
@@ -78,26 +79,38 @@ application-*.properties
 # UPLOADS AND USER FILES
 # =====================================================
 # User uploaded files should not be tracked
+# These are managed separately in production
 uploads/
-uploads/*
+uploads/**/*
 !uploads/.gitkeep
 
 # Temporary files
 tmp/
 temp/
 *.tmp
+.tmp/
 
 # =====================================================
 # DEPLOYMENT CONFIGURATION
 # =====================================================
 # Deployment files - manage these separately or via environment
+# CRITICAL: These files contain production configs and should NOT be tracked
 Procfile
 render.yaml
+railway.yaml
+deploy.yaml
 docker-compose.yml
+docker-compose.*.yml
 Dockerfile
+docker/
+.dockerignore
 
-# CI/CD workflows (optional - can be tracked or ignored based on policy)
+# CI/CD workflows and automation
 .github/
+.gitlab-ci.yml
+.circleci/
+.travis.yml
+azure-pipelines.yml
 
 # =====================================================
 # LOGS AND DEBUG
