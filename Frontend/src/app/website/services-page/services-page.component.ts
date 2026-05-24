@@ -71,6 +71,7 @@ import { Service } from '../shared/models/service.model';
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
+      contain: layout style;
     }
 
     .service-card {
@@ -79,11 +80,12 @@ import { Service } from '../shared/models/service.model';
       overflow: hidden;
       aspect-ratio: 1;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+      contain: layout style paint;
       
       &:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+        transform: translateY(-6px);
       }
     }
 
@@ -94,6 +96,7 @@ import { Service } from '../shared/models/service.model';
       background-position: center;
       background-repeat: no-repeat;
       position: relative;
+      contain: strict;
     }
 
     .service-overlay {
@@ -136,14 +139,14 @@ import { Service } from '../shared/models/service.model';
       border-radius: 6px;
       font-weight: 600;
       font-size: 15px;
-      transition: all 0.3s ease;
+      transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       cursor: pointer;
       align-self: flex-start;
+      will-change: background-color;
       
       &:hover {
         background-color: #5a6e4a;
-        transform: translateY(-2px);
       }
     }
 
