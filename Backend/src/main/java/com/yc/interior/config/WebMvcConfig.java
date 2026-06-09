@@ -7,13 +7,19 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Value("${app.upload.dir}")
+    @Value("${app.upload.dir:/app/uploads}")
     private String uploadDir;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String resourceLocation;
+        if (uploadDir.startsWith("/")) {
+            resourceLocation = "file:" + uploadDir + "/";
+        } else {
+            resourceLocation = "file:" + System.getProperty("user.dir") + "/" + uploadDir + "/";
+        }
         registry.addResourceHandler("/files/**")
-                .addResourceLocations("file:" + System.getProperty("user.dir") + "/" + uploadDir + "/");
+                .addResourceLocations(resourceLocation);
     }
 
     @Override
